@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{board/layout}">
+
+<div layout:fragment="content" class="container">
+
+    <h1>게시글 리스트</h1>
+
+    <table class="table">
+        <thead class="table-info">
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="board, loop : ${boardPages}">
+            <td th:text="${loop.count}"></td>
+            <td>
+                <a th:href="@{|/board/detail/${board.id}|}" th:text="${board.title}"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav th:if="${!boardPages.isEmpty()}" aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li th:classappend="${!boardPages.hasPrevious()} ? 'disabled'"
+                class="page-item">
+                <a th:href="@{|/board/list?page=${boardPages.number - 1}|}" class="page-link">Previous</a>
+            </li>
+
+            <li th:if="${page <= boardPages.number + 5 and page >= boardPages.number - 5}"
+                th:each="page : ${#numbers.sequence(0, boardPages.totalPages - 1)}"
+                th:classappend="${page == boardPages.number} ? 'active'"
+                class="page-item">
+                <a th:href="@{|/board/list?page=${page}|}" th:text="${page}" class="page-link"></a>
+            </li>
+
+            <li th:classappend="${!boardPages.hasNext()} ? 'disabled'"
+                class="page-item">
+                <a th:href="@{|/board/list?page=${boardPages.number + 1}|}" class="page-link">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+    <a th:href="@{/board/create}" class="btn btn-primary">게시글 작성하러가기</a>
+</div>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Hello Temp!</h1>
+
+    <div th:if="${message}">
+        <span th:text="${message}"></span>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="fileMock, loop : ${fileMocks}">
+                <td th:text="${loop.count}"></td>
+                <td>
+                    <a th:href="@{|/hello/detail/${fileMock.id}|}" th:text="${fileMock.title}"></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/hello/upload}">Go to Upload</a>
+</body>
+</html>

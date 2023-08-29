@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{board/layout}">
+<div layout:fragment="content" class="container">
+
+    <h1>게시글 상세보기</h1>
+
+    <div class="card my-3 w-50">
+        <div>
+            <img style="height: 300px; width: auto;" th:src="@{|/board/image/${id}|}" class="card-img-top" alt="image">
+        </div>
+        <div class="card-body">
+            <h3 th:text="${board.title}" class="card-title"></h3>
+            <p th:text="${board.content}" class="card-text"></p>
+        </div>
+    </div>
+
+    <a th:href="@{/board/list}" class="btn btn-primary">홈으로 돌아가기</a>
+</div>
+</html>
